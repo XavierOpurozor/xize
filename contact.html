@@ -4,41 +4,294 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Xize</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/jpeg" href="XIZEFAVICON.jpeg">
+    <style>
+        /* General body and font styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        h1, h2, h3 {
+            color: #333333;
+            font-weight: 600;
+        }
+
+        /* Basic layout styling */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #333333;
+            color: #ffffff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .logo a span {
+            margin-left: 10px;
+        }
+
+        /* Hamburger menu styling */
+        #hamburger-menu {
+            display: none; /* Initially hidden on larger screens */
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        
+        #hamburger-menu span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #ffffff;
+            margin: 5px 0;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        #hamburger-menu.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        #hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #hamburger-menu.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ccc;
+        }
+
+        /* Mobile menu specific styles */
+        @media (max-width: 767px) {
+            #hamburger-menu {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.9);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 999;
+            }
+
+            nav.open {
+                transform: translateX(0);
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                font-size: 24px;
+                padding: 15px 20px;
+            }
+            
+            header .container {
+                padding: 0 20px;
+            }
+        }
+
+        /* Hero section styling */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background-color: #f4f4f4;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+        }
+        
+        /* New styling for the logo image */
+        .logo img {
+            max-height: 40px;
+            height: auto;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .footer {
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 80px;
+        }
+
+        /* Contact Page specific styles */
+        .contact-section {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form input[type="subject"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contact-form button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #555;
+        }
+
+        .contact-info-section {
+            margin-top: 60px;
+        }
+
+        .contact-info-section h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .contact-info-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <div class="logo">Xize</div>
-            <div class="logo">
-    <a href="index.html">
-        <img src="XIZE LOGO.jpeg" alt="Xize Logo">
-    </a>
-</div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="features.html">Features</a></li>
-                    <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<header>
+ <div class="container"> <div class="logo">
+                <a href="index.html">
+                    <img src="XIZE LOGO.jpeg" alt="Xize Logo">
+                    <span>Xize</span>
+                </a>
+            </div>
 
-    <main>
-        <section class="section contact-section">
-            <div class="container">
-                <h2 class="hero">Get in Touch</h2>
-                <p>We'd love to hear from you. Please fill out the form below or use our contact information to reach us directly.</p>
-                
-                <form class="contact-form"action="https://formspree.io/f/mldlwljj"
+            <button id="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+<nav id="nav-links">
+ <ul>
+     <li><a href="index.html">Home</a></li>
+ <li><a href="features.html">Features</a></li>
+ <li><a href="pricing.html">Pricing</a></li>
+ <li><a href="about.html">About Us</a></li>
+ <li><a href="contact.html">Contact</a></li>
+</ul>
+ </nav>
+</div>
+ </header>
+
+ <main>
+ <section class="section contact-section">
+ <div class="container">
+ <h2 class="hero">Get in Touch</h2>
+<p>We'd love to hear from you. Please fill out the form below or use our contact information to reach us directly.</p>
+ <form class="contact-form"action="https://formspree.io/f/mldlwljj"
   method="POST">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
+ <label for="name">Name</label>
+ <input type="text" id="name" name="name" required>
 
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required>
@@ -53,7 +306,7 @@
                 </form>
 
                 <div class="contact-info-section">
-                    <h3>Contact Information</h3>
+                    <h3>Contact Information </h3>
                     <p>If you have any questions or need support, feel free to reach out to us via email or phone.</p>
                     <ul style="list-style-type: square;">
                     <li>
@@ -63,21 +316,42 @@
                         <p>Phone: +234 8034714137, 09021592822.</p>
                     </li>
                     <li>
-                        <p>Address: Lagos, Lagos state, Nigeria.</p>
+ <p>Address: Lagos, Lagos state, Nigeria.</p>
                     </li>
-                    </ul>
-                </div>
+ </ul>               </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <img src="XIZE LOGO.jpeg" alt="Xize Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
-            <p>&copy; 2025 Xize . Created by NXH. All Rights Reserved.</p>
-        </div>
-    </footer>
+<footer class="footer">
+<div class="container">
+<div class="logo">
+                <a href="index.html">
+                    <img src="XIZE LOGO.jpeg" alt="Xize Logo">
+                    <span>Xize</span>
+                </a>
+            </div>
+ <p>&copy; 2025 Xize . Created by NXH. All Rights Reserved.</p>
+ </div>
+ </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerButton = document.getElementById('hamburger-menu');
+            const navLinks = document.getElementById('nav-links');
 
+            hamburgerButton.addEventListener('click', () => {
+                hamburgerButton.classList.toggle('active');
+                navLinks.classList.toggle('open');
+            });
+
+            // Close the menu when a link is clicked
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerButton.classList.remove('active');
+                    navLinks.classList.remove('open');
+                });
+            });
+        });
+    </script>
 </body>
-
 </html>
